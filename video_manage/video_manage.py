@@ -205,7 +205,38 @@ def exists_video_data(json_video_data_list, sha1):
 
     return False
 
+def set_video_data_for_json(json_video_data_dict):
+    '''
+    JSONのデータをVIDEOクラスのデータに変換する
 
+    Parameters
+    ----------
+    json_video_data_dict:
+        type:Dict
+        内容:JSONのデータが入った辞書変数
+
+    Returns
+    -------
+    video_data:
+        type:VIDEOクラス
+        内容:動画のデータ
+    '''
+    video_data = VIDEO(video_dir_path = json_video_data_dict["video_dir_path"],
+    video_file_name = json_video_data_dict["video_file_name"],
+    sha1 = json_video_data_dict["sha1"])
+
+    if "video_length" in json_video_data_dict:
+        video_data.video_length = json_video_data_dict["video_length"]
+    if "tags" in json_video_data_dict:
+        video_data.tags = json_video_data_dict["tags"]
+    if "exists_video_data" in json_video_data_dict:
+        video_data.exists_video_data = json_video_data_dict["exists_video_data"]
+    if "exists_thumbnail" in json_video_data_dict:
+        video_data.exists_thumbnail = json_video_data_dict["exists_thumbnail"]
+    if "view_count" in json_video_data_dict:
+        video_data.view_count=json_video_data_dict["view_count"]
+
+    return video_data
 
 
 
@@ -228,13 +259,15 @@ for ROOT_VIDEO_DIR in ROOT_VIDEO_DIR_LIST:
 
 
 # videos.json内の動画データをリスト化
+json_video_data_list=[]
 if os.path.isfile(ROOT_WEB_DIR + "/videos.json") ==True:
     with open(ROOT_WEB_DIR + "/videos.json", "r") as video_json_file:
         json_video_data = json.load(video_json_file)
-else:
-    json_video_data_list=[]
+        # TODO: json_video_data(辞書型)のデータをVIDEOクラスのリスト(json_video_data_list)に変換
+        for json_video_data_dict in json_video_data:
+            json_video_data_list.append(set_video_data_for_json(json_video_data_dict))
 
-# TODO: json_video_data(辞書型)のデータをVIDEOクラスのリスト(json_video_data_list)に変換
+
 
 
 
