@@ -1,0 +1,48 @@
+div {
+    box-sizing: border-box;
+    text-align: left;
+}
+div.top{
+    border-bottom: 3px solid #EEEEEE;
+    line-height: 8vh;
+}
+div.box_main{
+}
+div.contents{
+    padding-right: 1%;
+    border-right: 1px  solid #EEEEEE;
+}
+div.vtr{
+    border-bottom: 1px  solid #EEEEEE;
+}
+div.tags{
+    margin-top: 3%;
+    border-top: 1px  solid #EEEEEE;
+    border-bottom: 3px  solid #DDDDDD;
+}
+div.list_main{
+    margin-top:20px;
+    border-bottom: 1px  solid #EEEEEE;
+    height: 20vh;
+}
+div.list_v{
+    border: 2px  solid #555555;
+    float: left;
+    width:50%;
+    height: 18vh;
+}
+div.list_desc{
+    height: 18vh;
+}
+div.list_v{
+    border-bottom: 1px  solid #EEEEEE;
+}
+div.bottom{
+    border-top: 1px  solid #EEEEEE;
+    float: none;
+    width: 100%;
+    line-height: 10vh;
+}
+table.video_list{
+    table-layout: fixed;
+}

@@ -1,0 +1,7 @@
+{
+    "root_web_dir": "/mnt/c/xampp/htdocs/easy_play_video/src/",
+    "root_video_dir": [
+        "/mnt/c/xampp/htdocs/easy_play_video/src/video/",
+        "/mnt/c/xampp/htdocs/easy_play_video/video/"
+    ]
+}
