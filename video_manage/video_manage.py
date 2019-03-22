@@ -154,7 +154,7 @@ def search_video_file(search_path):
 
 def get_video_data(video_dir_path, video_file_name):
     '''
-    ディレクトリ内のビデオファイルを検索する
+    受け取った動画ファイルに関する情報をVIDEOクラスにまとめる
 
     Parameters
     ----------
