@@ -1,1 +1,6 @@
 video_contents/
+update_server.sh
+update_local.sh
+create_crypt_pw_file.py
+.vscode/
+video_manage/.python-version
