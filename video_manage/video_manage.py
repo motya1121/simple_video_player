@@ -229,8 +229,8 @@ def set_video_data_for_json(json_video_data_dict):
         video_data.video_length = json_video_data_dict["video_length"]
     if "tags" in json_video_data_dict:
         video_data.tags = json_video_data_dict["tags"]
-    if "exists_video_data" in json_video_data_dict:
-        video_data.exists_video_data = json_video_data_dict["exists_video_data"]
+    if "exists_video_file" in json_video_data_dict:
+        video_data.exists_video_file = json_video_data_dict["exists_video_file"]
     if "exists_thumbnail" in json_video_data_dict:
         video_data.exists_thumbnail = json_video_data_dict["exists_thumbnail"]
     if "view_count" in json_video_data_dict:
