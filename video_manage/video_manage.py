@@ -100,12 +100,25 @@ class VIDEO:
 
         Returns
         -------
-        Boolean(成功:True,失敗:False)
+        video_len_sec
+            type: int
+            内容: 動画の長さ
         '''
 
-        # TODO: 動画の長さ計算
+        # 動画の長さ計算
+        import numpy as np
+        import cv2
 
-        return False
+        video_path=self.video_dir_path+"/"+self.video_file_name
+        video = cv2.VideoCapture(video_path)
+
+        video_frame = video.get(cv2.CAP_PROP_FRAME_COUNT)
+        video_fps = video.get(cv2.CAP_PROP_FPS)
+        video_len_sec = video_frame / video_fps
+
+        self.video_length=video_len_sec
+
+        return video_len_sec
 
     def create_thumbnail(self):
         '''
@@ -324,6 +337,9 @@ def update_video_data(json_video_data_list, dir_video_data):
             json_video_data.video_file_name = dir_video_data.video_file_name
             json_video_data.exists_thumbnail = dir_video_data.exists_thumbnail
             json_video_data.exists_video_file = dir_video_data.exists_video_file
+
+            if json_video_data.video_length == 0:
+                json_video_data.calc_video_length()
     return json_video_data_list
 
 #############################################
@@ -358,13 +374,14 @@ if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(R
 for dir_video_data in dir_video_data_list:
     if len(json_video_data_list) == 0:
         # 新規追加
+        dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
     elif exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
         # ファイルパスなどをアップデート
         json_video_data_list = update_video_data(json_video_data_list, dir_video_data)
-        pass
     else:
         # 新規追加
+        dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
 
 
