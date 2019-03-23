@@ -264,6 +264,32 @@ def check_json_format(json_file_path):
         except json.JSONDecodeError:
             return False
 
+def update_video_data(json_video_data_list, dir_video_data):
+    '''
+    JSONファイル内の情報をアップデート
+
+    Parameters
+    ----------
+    json_video_data_list:
+        type: VIDEOのlist
+        内容: JSON内に書かれている動画データ
+    dir_video_data:
+        type: VIDEOクラス
+        内容: ディレクトリにある動画データ
+
+    Returns
+    -------
+    json_video_data_list
+        type: VIDEOのlist
+        内容: 新しい情報にしたあとのjson_video_data_list
+    '''
+    for json_video_data in json_video_data_list:
+        if (json_video_data.sha1 == dir_video_data.sha1):
+            json_video_data.video_dir_path = dir_video_data.video_dir_path
+            json_video_data.video_file_name = dir_video_data.video_file_name
+            json_video_data.exists_thumbnail = dir_video_data.exists_thumbnail
+            json_video_data.exists_video_file = dir_video_data.exists_video_file
+    return json_video_data_list
 
 #############################################
 #                   main                    #
@@ -300,6 +326,7 @@ for dir_video_data in dir_video_data_list:
         json_video_data_list.append(dir_video_data)
     elif exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
         # ファイルパスなどをアップデート
+        json_video_data_list = update_video_data(json_video_data_list, dir_video_data)
         pass
     else:
         # 新規追加
