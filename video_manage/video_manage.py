@@ -73,7 +73,7 @@ class VIDEO:
             self.exists_thumbnail = False
         return self.exists_thumbnail
 
-    def make_thumbnail(self):
+    def make_thumbnail(self, VERTICAL=3, HORIZONTAL=4):
         '''
         サムネイルを作成し、self.exists_thumbnailをTrueにする
 
@@ -83,12 +83,46 @@ class VIDEO:
 
         Returns
         -------
-        Boolean(成功:True,失敗:False)
+        無し
         '''
 
-        # TODO: サムネイル作成
+        import numpy as np
+        import cv2
 
-        return False
+        video_path = self.video_dir_path + "/" + self.video_file_name
+        thumbnail_path = self.video_dir_path + "/" + self.video_file_name[:self.video_file_name.rfind(".")] + ".jpg"
+        video = cv2.VideoCapture(video_path)
+        video_frame = video.get(cv2.CAP_PROP_FRAME_COUNT)
+
+        thumbnail_interval = int(video_frame / (VERTICAL * HORIZONTAL - 1)) - 1
+        image_list = []
+        temp_image_list = []
+
+        flame_num = 0
+        hor_img_count = 0
+        while video.isOpened():
+            ret, frame = video.read()
+            if not ret:
+                break
+
+            if flame_num % thumbnail_interval == 0:
+                temp_image_list.append(frame)
+                hor_img_count += 1
+                if hor_img_count == HORIZONTAL:
+                    image_list.append(cv2.hconcat(temp_image_list))
+                    temp_image_list = []
+                    hor_img_count = 0
+
+            flame_num+=1
+
+        # メモリ開放
+        video.release()
+        cv2.destroyAllWindows()
+
+        thumbnail = cv2.vconcat(image_list)
+        cv2.imwrite(thumbnail_path, thumbnail)
+
+        self.exists_thumbnail = True
 
     def calc_video_length(self):
         '''
@@ -119,19 +153,6 @@ class VIDEO:
         self.video_length=video_len_sec
 
         return video_len_sec
-
-    def create_thumbnail(self):
-        '''
-        サムネイルを作成する
-
-        Parameters
-        ----------
-        無し
-
-        Returns
-        -------
-        無し
-        '''
 
     def generate_dict(self):
         '''
@@ -340,6 +361,8 @@ def update_video_data(json_video_data_list, dir_video_data):
 
             if json_video_data.video_length == 0:
                 json_video_data.calc_video_length()
+            if json_video_data.exists_thumbnail == False:
+                json_video_data.make_thumbnail()
     return json_video_data_list
 
 #############################################
@@ -376,6 +399,8 @@ for dir_video_data in dir_video_data_list:
         # 新規追加
         dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
+        if dir_video_data.check_exists_thumbnail()==FAlse:
+            dir_video_data.make_thumbnail()
     elif exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
         # ファイルパスなどをアップデート
         json_video_data_list = update_video_data(json_video_data_list, dir_video_data)
@@ -383,6 +408,8 @@ for dir_video_data in dir_video_data_list:
         # 新規追加
         dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
+        if dir_video_data.check_exists_thumbnail()==FAlse:
+            dir_video_data.make_thumbnail()
 
 
 # 書き出すデータの準備
