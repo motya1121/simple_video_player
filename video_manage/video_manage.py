@@ -88,7 +88,7 @@ class VIDEO:
 
     def generate_dict(self):
         '''
-        サムネイルを作成する
+        クラス内のデータをJSONとして出力するために辞書化する
 
         Parameters
         ----------
@@ -97,8 +97,8 @@ class VIDEO:
         Returns
         -------
         video_file_dict:
-            type:Dict
-            内容:クラス内のデータをJSONとして出力するために辞書化する
+            type: Dict
+            内容: 出力する辞書ファイル
         '''
         video_file_dict = {
             "video_dir_path": self.video_dir_path,
@@ -107,7 +107,8 @@ class VIDEO:
             "video_length": int(self.video_length),
             "tags": self.tags,
             "exists_thumbnail": self.exists_thumbnail,
-            "view_count": self.view_count
+            "view_count": self.view_count,
+            "exists_video_file": self.exists_video_file
         }
         return video_file_dict
 
