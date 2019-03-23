@@ -200,10 +200,14 @@ def exists_video_data(json_video_data_list, sha1):
         type: boolean
         内容: 存在する:True, 存在しない:False
     '''
-    # TODO: チェックする処理を追加
 
+    exists_video_data = False
+    for json_video_data in json_video_data_list:
+        if (json_video_data.sha1 == sha1):
+            exists_video_data = True
+            break
 
-    return False
+    return exists_video_data
 
 def set_video_data_for_json(json_video_data_dict):
     '''
