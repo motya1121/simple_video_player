@@ -73,6 +73,22 @@ class VIDEO:
             self.exists_thumbnail = False
         return self.exists_thumbnail
 
+    def make_thumbnail(self):
+        '''
+        サムネイルを作成し、self.exists_thumbnailをTrueにする
+
+        Parameters
+        ----------
+        無し
+
+        Returns
+        -------
+        Boolean(成功:True,失敗:False)
+        '''
+
+        # TODO: サムネイル作成
+
+        return False
     def create_thumbnail(self):
         '''
         サムネイルを作成する
