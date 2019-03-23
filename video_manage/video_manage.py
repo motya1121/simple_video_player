@@ -89,6 +89,24 @@ class VIDEO:
         # TODO: サムネイル作成
 
         return False
+
+    def calc_video_length(self):
+        '''
+        動画の長さを計算し、self.video_lengthに格納する
+
+        Parameters
+        ----------
+        無し
+
+        Returns
+        -------
+        Boolean(成功:True,失敗:False)
+        '''
+
+        # TODO: 動画の長さ計算
+
+        return False
+
     def create_thumbnail(self):
         '''
         サムネイルを作成する
