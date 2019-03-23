@@ -288,29 +288,30 @@ json_video_data_list=[]
 if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(ROOT_WEB_DIR + "/videos.json") == True:
     with open(ROOT_WEB_DIR + "/videos.json", "r") as video_json_file:
         json_video_data = json.load(video_json_file)
-        # TODO: json_video_data(辞書型)のデータをVIDEOクラスのリスト(json_video_data_list)に変換
+        # json_video_data(辞書型)のデータをVIDEOクラスのリスト(json_video_data_list)に変換
         for json_video_data_dict in json_video_data:
             json_video_data_list.append(set_video_data_for_json(json_video_data_dict))
 
 
-
-
-
-
 # dir_video_data_listとjson_video_data_listを比較
 for dir_video_data in dir_video_data_list:
-    if exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
+    if len(json_video_data_list) == 0:
+        # 新規追加
+        json_video_data_list.append(dir_video_data)
+    elif exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
         # ファイルパスなどをアップデート
         pass
     else:
         # 新規追加
         json_video_data_list.append(dir_video_data)
 
+
 # 書き出すデータの準備
 output_video_data_list=[]
 for json_video_data in json_video_data_list:
     output_video_data_list.append(json_video_data.generate_dict())
 
+
 # video.jsonに書き出し
 with open(ROOT_WEB_DIR + "/videos.json", "w") as video_json_file:
-    json.dump(output_video_data_list,video_json_file)
+    json.dump(output_video_data_list,video_json_file,indent=4)
