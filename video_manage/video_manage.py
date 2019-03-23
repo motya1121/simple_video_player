@@ -242,6 +242,27 @@ def set_video_data_for_json(json_video_data_dict):
 
     return video_data
 
+def check_json_format(json_file_path):
+    '''
+    JSONファイルが不正かどうかを確認
+
+    Parameters
+    ----------
+    json_file_path :
+        type: str
+        内容: JSONファイルへのパス(絶対パス)
+
+    Returns
+    -------
+        type: boolean
+        内容: 正しい->True, 不正->False
+    '''
+    with open(json_file_path, "r") as json_file:
+        try:
+            json.load(json_file)
+            return True
+        except json.JSONDecodeError:
+            return False
 
 
 #############################################
@@ -264,7 +285,7 @@ for ROOT_VIDEO_DIR in ROOT_VIDEO_DIR_LIST:
 
 # videos.json内の動画データをリスト化
 json_video_data_list=[]
-if os.path.isfile(ROOT_WEB_DIR + "/videos.json") ==True:
+if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(ROOT_WEB_DIR + "/videos.json") == True:
     with open(ROOT_WEB_DIR + "/videos.json", "r") as video_json_file:
         json_video_data = json.load(video_json_file)
         # TODO: json_video_data(辞書型)のデータをVIDEOクラスのリスト(json_video_data_list)に変換
