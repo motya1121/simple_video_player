@@ -19,7 +19,7 @@ import json
 #                  classes                  #
 #############################################
 class VIDEO:
-    def __init__(self, video_dir_path, video_file_name, sha1=None, video_length=0, tags=[], exists_video_data=False,exists_thumbnail=False, view_count=0):
+    def __init__(self, video_dir_path, video_file_name, sha1=None, video_length=0, tags=[], exists_video_file=False,exists_thumbnail=False, view_count=0):
         self.video_dir_path = video_dir_path
         self.video_file_name = video_file_name
         self.sha1 = sha1
@@ -27,7 +27,7 @@ class VIDEO:
         self.tags = tags
         self.exists_thumbnail = exists_thumbnail
         self.view_count = view_count
-        self.exists_video_data = exists_video_data
+        self.exists_video_file = exists_video_file
 
     def calc_hash(self):
         '''
@@ -175,7 +175,7 @@ def get_video_data(video_dir_path, video_file_name):
     if DEBUG in ["1", "2"]:
         print("*INFO: get {0} data".format(video_file_name))
 
-    video = VIDEO(video_dir_path=video_dir_path, video_file_name=video_file_name, exists_video_data=True)
+    video = VIDEO(video_dir_path=video_dir_path, video_file_name=video_file_name, exists_video_file=True)
     video.calc_hash()
     video.check_exists_thumbnail()
 
