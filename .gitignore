@@ -4,3 +4,5 @@ update_local.sh
 create_crypt_pw_file.py
 .vscode/
 video_manage/.python-version
+EPV_web_page.md5sum
+EPV_web_page.tar.gz
