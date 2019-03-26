@@ -60,7 +60,7 @@
     <div class="bottom">
         <a href="top.php">Home video page!</a>
     </div>
-    </bo dy>
+</body>
 
 
 </html> 
