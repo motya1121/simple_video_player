@@ -6,7 +6,10 @@
     <title>home video page</title>
     <link rel="stylesheet" type="text/css" href="style_pc.css">
     <?php
-    ini_set('display_errors', "On");
+    require("web_page_conf.php");
+    if ($is_open == false) {
+        exit;
+    }
     # check exist GET data
     if (empty($_GET["sha1"])) {
         header('Location: top.php');

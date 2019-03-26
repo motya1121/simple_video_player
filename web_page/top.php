@@ -6,7 +6,11 @@
     <title>home video page</title>
     <link rel="stylesheet" type="text/css" href="style_pc.css">
     <?php
-    ini_set('display_errors', "On");
+    require("web_page_conf.php");
+    if ($is_open == false) {
+        exit;
+    }
+
     $json_file = "videos.json";
     if (file_exists($json_file)) {
         $json = file_get_contents($json_file);
