@@ -43,7 +43,9 @@ div.contents_main{
     display:table-cell;
     vertical-align:top;
     width: 80%;
+    padding:5px;
 }
+/**top**/
 div.contents_main_video{
     border-bottom: 1px solid #AAAAAA;
     margin: 10px 1px;
@@ -68,6 +70,10 @@ div.contents_main_video_description{
 .contents_main_video_description > H2{
     margin-top: 0px;
     margin-bottom: 10px;
+}
+/**watch**/
+.contents_main > video{
+    width:100%;
 }
 
 /*bottom*/
