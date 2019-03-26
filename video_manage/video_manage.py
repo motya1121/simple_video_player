@@ -455,10 +455,4 @@ for json_video_data in json_video_data_list:
 # video.jsonに書き出し
 with open(ROOT_WEB_DIR + "/videos.json", "w") as video_json_file:
     json.dump(output_video_data_list, video_json_file, indent=4)
-
-
-# シンボリックリンクの作成
-dir_count = 1
-for ROOT_VIDEO_DIR in ROOT_VIDEO_DIR_LIST:
-    cmd = "ln -s ROOT_VIDEO_DIR ROOT_WEB_DIR/{0}".format(dir_count)
-    dir_count += 1
+os.chmod(ROOT_WEB_DIR + "/videos.json",stat.S_IRWXU | stat.S_IRWXG  | stat.S_IRWXO )
