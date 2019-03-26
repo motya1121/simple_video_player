@@ -15,6 +15,7 @@ import subprocess
 import os.path
 import hashlib
 import json
+import stat
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
