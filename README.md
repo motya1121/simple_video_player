@@ -1,4 +1,4 @@
-# easy play video
+# Simple_video_player
 PCに保存した動画を簡単にLAN内の端末で視聴できるようにするツール。
 
 # 動作環境
