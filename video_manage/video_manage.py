@@ -221,7 +221,7 @@ def search_video_file(search_path):
 
     proc = subprocess.run(["ls", "-1"], cwd=search_path,
                           stdout=subprocess.PIPE)
-    ls_results = proc.stdout.decode("utf8").split()
+    ls_results = proc.stdout.decode("utf8").splitlines()
 
     for ls_result in ls_results:
         file_path = search_path + "/" + ls_result
