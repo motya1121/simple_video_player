@@ -10,7 +10,7 @@ Ubuntu16.04
 - Python 3.5.2:
 Ubuntu16.04のデフォルト
 - pip 8.1.1:
-`sudo apt-gte install python3-pip`でインストール
+`sudo apt-get install python3-pip`でインストール
 - PHP 7.0.33:
 `sudo apt-get install php`でインストール
 - Apache 2.4.18:
