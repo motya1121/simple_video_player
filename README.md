@@ -27,11 +27,24 @@ sudo a2ensite default-ssl
 sudo service apache2 reload
 ```
 
+その他pip関連で諸々必要
 
 
 # 使用方法
-## 動画の追加
+## 設定ファイル
+### video_manage/video_manage.conf
+- root_web_dir: Webページのルートディレクトリ(web_pageディレクトリを配置した場所)
+- root_video_dir: 動画ファイルが配置されているディレクトリ(カンマ区切りで複数指定可能)
 
 
-## 動画の削除
+### web_page/web_page_conf.php
+- $is_open: Trueならばサイトを公開,Falseならばサイトを公開しない
 
+
+## 動画登録方法
+`video_manage/video_manage.py`を実行するだけ
+なお、シンボリックリンクなどを張ったり、ファイルを作成する必要があるため、権限には注意が必要。
+`/var/www/html/`と`web_page`にシンボリックリンクを張ることをおすすめ。
+
+## 閲覧
+`top.php`を開けば閲覧できる
