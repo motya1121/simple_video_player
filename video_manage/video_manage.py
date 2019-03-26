@@ -1,11 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
 
-import json
-import hashlib
-import os.path
-import subprocess
-import configparser
 '''
 動画管理を行うプログラム
 CONFIGファイルに書かれているディレクトリ内に存在する動画に関する情報をまとめて、JSON形式で出力する。
@@ -29,9 +24,10 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 class VIDEO:
-    def __init__(self, video_dir_path, video_file_name, sha1=None, video_length=0, tags=[], exists_video_file=False, exists_thumbnail=False, view_count=0):
+    def __init__(self, video_dir_path, video_file_name,video_web_dir_path="", sha1=None, video_length=0, tags=[], exists_video_file=False, exists_thumbnail=False, view_count=0):
         self.video_dir_path = video_dir_path
         self.video_file_name = video_file_name
+        self.video_web_dir_path=video_web_dir_path
         self.sha1 = sha1
         self.video_length = video_length
         self.tags = tags
@@ -218,6 +214,10 @@ def search_video_file(search_path):
 
     if DEBUG in ["1", "2"]:
         print("*INFO: in dir:{0}".format(search_path))
+    # シンボリックリンクの作成
+    search_path_sha1 = hashlib.sha1(search_path.encode("utf8")).hexdigest()
+    os.symlink(search_path,ROOT_WEB_DIR+"/video_contents/"+search_path_sha1)
+
     proc = subprocess.run(["ls", "-1"], cwd=search_path,
                           stdout=subprocess.PIPE)
     ls_results = proc.stdout.decode("utf8").split()
@@ -396,6 +396,18 @@ ROOT_VIDEO_DIR_LIST = config_file.get("SETTINGS", "root_video_dir").split(",")
 ROOT_WEB_DIR = config_file.get("SETTINGS", "root_web_dir")
 DEBUG = config_file.get("DEBUG", "DEBUG_LEVEL")
 
+if os.path.isdir(ROOT_WEB_DIR+"/video_contents/")==True:
+    # ディレクトリ内のシンボリックリンクを削除
+    proc = subprocess.run(["ls", "-1"], cwd=ROOT_WEB_DIR+"/video_contents/",stdout=subprocess.PIPE)
+    ls_results = proc.stdout.decode("utf8").split()
+    for ls_result in ls_results:
+        os.unlink(ROOT_WEB_DIR+"/video_contents/"+ls_result)
+else:
+    # ディレクトリの作成
+    os.mkdir(ROOT_WEB_DIR+"/video_contents/")
+
+
+
 
 # ディレクトリ内の動画ファイルをリスト化
 dir_video_data_list = []
@@ -443,3 +455,10 @@ for json_video_data in json_video_data_list:
 # video.jsonに書き出し
 with open(ROOT_WEB_DIR + "/videos.json", "w") as video_json_file:
     json.dump(output_video_data_list, video_json_file, indent=4)
+
+
+# シンボリックリンクの作成
+dir_count = 1
+for ROOT_VIDEO_DIR in ROOT_VIDEO_DIR_LIST:
+    cmd = "ln -s ROOT_VIDEO_DIR ROOT_WEB_DIR/{0}".format(dir_count)
+    dir_count += 1
