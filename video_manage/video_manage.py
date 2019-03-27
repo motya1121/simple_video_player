@@ -25,16 +25,17 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 class VIDEO:
-    def __init__(self, video_dir_path, video_file_name,video_web_dir_path="", sha1=None, video_length=0, tags=[], exists_video_file=False, exists_thumbnail=False, view_count=0):
+    def __init__(self, video_dir_path, video_file_name, video_web_dir_path="", sha1=None, video_length=0, tags=[], exists_video_file=False, exists_thumbnail=False, view_count=0, is_favorite=False):
         self.video_dir_path = video_dir_path
         self.video_file_name = video_file_name
-        self.video_web_dir_path=video_web_dir_path
+        self.video_web_dir_path = video_web_dir_path
         self.sha1 = sha1
         self.video_length = video_length
         self.tags = tags
         self.exists_thumbnail = exists_thumbnail
         self.view_count = view_count
         self.exists_video_file = exists_video_file
+        self.is_favorite = is_favorite
 
     def calc_hash(self):
         '''
@@ -185,7 +186,8 @@ class VIDEO:
             "tags": self.tags,
             "exists_thumbnail": self.exists_thumbnail,
             "view_count": self.view_count,
-            "exists_video_file": self.exists_video_file
+            "exists_video_file": self.exists_video_file,
+            "is_favorite": self.is_favorite
         }
         return video_file_dict
 
@@ -326,6 +328,8 @@ def set_video_data_for_json(json_video_data_dict):
         video_data.exists_thumbnail = json_video_data_dict["exists_thumbnail"]
     if "view_count" in json_video_data_dict:
         video_data.view_count = json_video_data_dict["view_count"]
+    if "is_favorite" in json_video_data_dict:
+        video_data.is_favorite = json_video_data_dict["is_favorite"]
 
     return video_data
 
