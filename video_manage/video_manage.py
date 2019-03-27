@@ -219,7 +219,7 @@ def search_video_file(search_path):
         print("*INFO: in dir:{0}".format(search_path))
     # シンボリックリンクの作成
     search_path_sha1 = hashlib.sha1(search_path.encode("utf8")).hexdigest()
-    os.symlink(search_path,ROOT_WEB_DIR+"/video_contents/"+search_path_sha1)
+    os.symlink(search_path, ROOT_WEB_DIR+"/video_contents/"+search_path_sha1)
 
     proc = subprocess.run(["ls", "-1"], cwd=search_path,
                           stdout=subprocess.PIPE)
@@ -401,17 +401,16 @@ ROOT_VIDEO_DIR_LIST = config_file.get("SETTINGS", "root_video_dir").split(",")
 ROOT_WEB_DIR = config_file.get("SETTINGS", "root_web_dir")
 DEBUG = config_file.get("DEBUG", "DEBUG_LEVEL")
 
-if os.path.isdir(ROOT_WEB_DIR+"/video_contents/")==True:
+if os.path.isdir(ROOT_WEB_DIR+"/video_contents/") == True:
     # ディレクトリ内のシンボリックリンクを削除
-    proc = subprocess.run(["ls", "-1"], cwd=ROOT_WEB_DIR+"/video_contents/",stdout=subprocess.PIPE)
+    proc = subprocess.run(["ls", "-1"], cwd=ROOT_WEB_DIR +
+                          "/video_contents/", stdout=subprocess.PIPE)
     ls_results = proc.stdout.decode("utf8").split()
     for ls_result in ls_results:
         os.unlink(ROOT_WEB_DIR+"/video_contents/"+ls_result)
 else:
     # ディレクトリの作成
     os.mkdir(ROOT_WEB_DIR+"/video_contents/")
-
-
 
 
 # ディレクトリ内の動画ファイルをリスト化
@@ -460,4 +459,5 @@ for json_video_data in json_video_data_list:
 # video.jsonに書き出し
 with open(ROOT_WEB_DIR + "/videos.json", "w") as video_json_file:
     json.dump(output_video_data_list, video_json_file, indent=4)
-os.chmod(ROOT_WEB_DIR + "/videos.json",stat.S_IRWXU | stat.S_IRWXG  | stat.S_IRWXO )
+os.chmod(ROOT_WEB_DIR + "/videos.json",
+         stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
