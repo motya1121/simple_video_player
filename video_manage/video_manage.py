@@ -73,11 +73,11 @@ class VIDEO:
         tmb_file_name = self.video_file_name[:self.video_file_name.rfind(".")]
         if os.path.isfile(self.video_dir_path + "/" + tmb_file_name + ".jpg"):
             if DEBUG in ["2"]:
-                print("*INFO: thumbnail not exists")
+                print("*INFO: thumbnail not exists", flush=True)
             self.exists_thumbnail = True
         else:
             if DEBUG in ["2"]:
-                print("*INFO: thumbnail exists")
+                print("*INFO: thumbnail exists", flush=True)
             self.exists_thumbnail = False
         return self.exists_thumbnail
 
