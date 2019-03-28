@@ -54,8 +54,7 @@ class VIDEO:
             video_binary_data = video_file.read()
             sha1 = hashlib.sha1(video_binary_data).hexdigest()
         if DEBUG in ["2"]:
-            print(
-                "*INFO: {0}'s sha1sum->{1}".format(self.video_file_name, sha1))
+            print("*INFO: {0}'s sha1sum->{1}".format(self.video_file_name, sha1), flush=True)
         self.sha1 = sha1
         return self.sha1
 
@@ -216,7 +215,7 @@ def search_video_file(search_path):
     video_file_list = []
 
     if DEBUG in ["1", "2"]:
-        print("*INFO: in dir:{0}".format(search_path))
+        print("*INFO: in dir:{0}".format(search_path), flush=True)
     # シンボリックリンクの作成
     search_path_sha1 = hashlib.sha1(search_path.encode("utf8")).hexdigest()
     os.symlink(search_path, ROOT_WEB_DIR+"/video_contents/"+search_path_sha1)
@@ -234,7 +233,7 @@ def search_video_file(search_path):
         else:
             video_file_list.append(get_video_data(search_path, ls_result))
     if DEBUG in ["1", "2"]:
-        print("*INFO: out dir: {0}".format(search_path))
+        print("*INFO: out dir: {0}".format(search_path), flush=True)
 
     return video_file_list
 
@@ -259,7 +258,7 @@ def get_video_data(video_dir_path, video_file_name):
         内容: 動画ファイルに関する情報
     '''
     if DEBUG in ["2"]:
-        print("*INFO: get {0} data for directory".format(video_file_name))
+        print("*INFO: get {0} data for directory".format(video_file_name), flush=True)
 
     video = VIDEO(video_dir_path=video_dir_path,
                   video_file_name=video_file_name, exists_video_file=True)
@@ -315,7 +314,7 @@ def set_video_data_for_json(json_video_data_dict):
         内容:動画のデータ
     '''
     if DEBUG in ["2"]:
-        print("*INFO: get {0} data for JSON".format(json_video_data_dict["video_file_name"]))
+        print("*INFO: get {0} data for JSON".format(json_video_data_dict["video_file_name"]), flush=True)
     video_data = VIDEO(video_dir_path=json_video_data_dict["video_dir_path"],
                        video_file_name=json_video_data_dict["video_file_name"],
                        sha1=json_video_data_dict["sha1"])
