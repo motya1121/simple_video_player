@@ -53,7 +53,7 @@ class VIDEO:
         with open(video_path, "rb") as video_file:
             video_binary_data = video_file.read()
             sha1 = hashlib.sha1(video_binary_data).hexdigest()
-        if DEBUG in ["1", "2"]:
+        if DEBUG in ["2"]:
             print(
                 "*INFO: {0}'s sha1sum->{1}".format(self.video_file_name, sha1))
         self.sha1 = sha1
@@ -258,8 +258,8 @@ def get_video_data(video_dir_path, video_file_name):
         type: VIDEOクラス
         内容: 動画ファイルに関する情報
     '''
-    if DEBUG in ["1", "2"]:
-        print("*INFO: get {0} data".format(video_file_name))
+    if DEBUG in ["2"]:
+        print("*INFO: get {0} data for directory".format(video_file_name))
 
     video = VIDEO(video_dir_path=video_dir_path,
                   video_file_name=video_file_name, exists_video_file=True)
@@ -314,6 +314,8 @@ def set_video_data_for_json(json_video_data_dict):
         type:VIDEOクラス
         内容:動画のデータ
     '''
+    if DEBUG in ["2"]:
+        print("*INFO: get {0} data for JSON".format(json_video_data_dict["video_file_name"]))
     video_data = VIDEO(video_dir_path=json_video_data_dict["video_dir_path"],
                        video_file_name=json_video_data_dict["video_file_name"],
                        sha1=json_video_data_dict["sha1"])
@@ -401,6 +403,8 @@ ROOT_VIDEO_DIR_LIST = config_file.get("SETTINGS", "root_video_dir").split(",")
 ROOT_WEB_DIR = config_file.get("SETTINGS", "root_web_dir")
 DEBUG = config_file.get("DEBUG", "DEBUG_LEVEL")
 
+# INFO
+print ("*INFO: シンボリックリンクの作成", flush=True)
 if os.path.isdir(ROOT_WEB_DIR+"/video_contents/") == True:
     # ディレクトリ内のシンボリックリンクを削除
     proc = subprocess.run(["ls", "-1"], cwd=ROOT_WEB_DIR +
@@ -414,12 +418,16 @@ else:
 
 
 # ディレクトリ内の動画ファイルをリスト化
+# INFO
+print ("*INFO: ディレクトリ内の動画ファイルをリスト化", flush=True)
 dir_video_data_list = []
 for ROOT_VIDEO_DIR in ROOT_VIDEO_DIR_LIST:
     dir_video_data_list.extend(search_video_file(ROOT_VIDEO_DIR))
 
 
 # videos.json内の動画データをリスト化
+# INFO
+print ("*INFO: JSONファイル内の動画データをリスト化", flush=True)
 json_video_data_list = []
 if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(ROOT_WEB_DIR + "/videos.json") == True:
     with open(ROOT_WEB_DIR + "/videos.json", "r") as video_json_file:
@@ -431,6 +439,8 @@ if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(R
 
 
 # dir_video_data_listとjson_video_data_listを比較
+# INFO
+print ("*INFO: ディレクトリとJSONの内容を比較", flush=True)
 for dir_video_data in dir_video_data_list:
     if len(json_video_data_list) == 0:
         # 新規追加
@@ -451,12 +461,16 @@ for dir_video_data in dir_video_data_list:
 
 
 # 書き出すデータの準備
+# INFO
+print ("*INFO: JSONの書き出し準備", flush=True)
 output_video_data_list = []
 for json_video_data in json_video_data_list:
     output_video_data_list.append(json_video_data.generate_dict())
 
 
 # video.jsonに書き出し
+# INFO
+print ("*INFO: JSONの書き出し", flush=True)
 with open(ROOT_WEB_DIR + "/videos.json", "w") as video_json_file:
     json.dump(output_video_data_list, video_json_file, indent=4)
 os.chmod(ROOT_WEB_DIR + "/videos.json",
