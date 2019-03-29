@@ -398,26 +398,15 @@ def update_video_data(json_video_data_list, dir_video_data):
 
 
 # initialize
-print("# initialize")
-start = time.time()
-temp = time.time()
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
 config_file = configparser.ConfigParser()
 config_file.read('video_manage.conf', 'UTF-8')
 ROOT_VIDEO_DIR_LIST = config_file.get("SETTINGS", "root_video_dir").split(",")
 ROOT_WEB_DIR = config_file.get("SETTINGS", "root_web_dir")
 DEBUG = config_file.get("DEBUG", "DEBUG_LEVEL")
 
-<<<<<<< HEAD
 # シンボリックリンク
-print("# シンボリックリンク")
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
-=======
 # INFO
 print ("*INFO: シンボリックリンクの作成", flush=True)
->>>>>>> feature/output_log
 if os.path.isdir(ROOT_WEB_DIR+"/video_contents/") == True:
     # ディレクトリ内のシンボリックリンクを削除
     proc = subprocess.run(["ls", "-1"], cwd=ROOT_WEB_DIR +
@@ -431,29 +420,16 @@ else:
 
 
 # ディレクトリ内の動画ファイルをリスト化
-<<<<<<< HEAD
-# TODO: ここの処理を軽くする（300sくらい)
-print ("# ディレクトリ内の動画ファイルをリスト化")
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
-=======
 # INFO
 print ("*INFO: ディレクトリ内の動画ファイルをリスト化", flush=True)
->>>>>>> feature/output_log
 dir_video_data_list = []
 for ROOT_VIDEO_DIR in ROOT_VIDEO_DIR_LIST:
     dir_video_data_list.extend(search_video_file(ROOT_VIDEO_DIR))
 
 
 # videos.json内の動画データをリスト化
-<<<<<<< HEAD
-print ("# videos.json内の動画データをリスト化")
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
-=======
 # INFO
 print ("*INFO: JSONファイル内の動画データをリスト化", flush=True)
->>>>>>> feature/output_log
 json_video_data_list = []
 if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(ROOT_WEB_DIR + "/videos.json") == True:
     with open(ROOT_WEB_DIR + "/videos.json", "r") as video_json_file:
@@ -465,15 +441,8 @@ if os.path.isfile(ROOT_WEB_DIR + "/videos.json") == True and check_json_format(R
 
 
 # dir_video_data_listとjson_video_data_listを比較
-<<<<<<< HEAD
-# TODO: ちょっと処理を見直す(9sくらい)
-print ("# dir_video_data_listとjson_video_data_listを比較")
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
-=======
 # INFO
 print ("*INFO: ディレクトリとJSONの内容を比較", flush=True)
->>>>>>> feature/output_log
 for dir_video_data in dir_video_data_list:
     if len(json_video_data_list) == 0:
         # 新規追加
@@ -494,28 +463,16 @@ for dir_video_data in dir_video_data_list:
 
 
 # 書き出すデータの準備
-<<<<<<< HEAD
-print ("# 書き出すデータの準備")
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
-=======
 # INFO
 print ("*INFO: JSONの書き出し準備", flush=True)
->>>>>>> feature/output_log
 output_video_data_list = []
 for json_video_data in json_video_data_list:
     output_video_data_list.append(json_video_data.generate_dict())
 
 
 # video.jsonに書き出し
-<<<<<<< HEAD
-print ("# video.jsonに書き出し")
-print("time:{0}, total time:{1}".format(time.time() - temp, time.time() - start))
-temp = time.time()
-=======
 # INFO
 print ("*INFO: JSONの書き出し", flush=True)
->>>>>>> feature/output_log
 with open(ROOT_WEB_DIR + "/videos.json", "w") as video_json_file:
     json.dump(output_video_data_list, video_json_file, indent=4)
 os.chmod(ROOT_WEB_DIR + "/videos.json",
