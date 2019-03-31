@@ -112,30 +112,26 @@ class VIDEO:
 
         flame_num = 0
         hor_img_count = 0
-        while video.isOpened():
+        for flame_num in range(0, int(video_frame), int(thumbnail_interval)):
+            video.set(cv2.CAP_PROP_POS_FRAMES, flame_num)
             ret, frame = video.read()
-            if not ret:
-                break
 
-            if flame_num % thumbnail_interval == 0:
-                video_len_sec = flame_num / video_fps
-                put_text = '{0}:{1:0=2}'.format(int(video_len_sec / 60), int(video_len_sec % 60))
-                retval, baseLine = cv2.getTextSize(put_text, cv2.FONT_HERSHEY_COMPLEX, 1.0, 1)
-                left = 5
-                right = left + retval[0] + 10
-                bottom = frame.shape[0] - 5
-                top = bottom - retval[1] - 10
-                pts = np.array(((left, top), (right, top), (right, bottom), (left, bottom)))
-                cv2.fillPoly(frame, [pts], (200,200,200))
-                cv2.putText(frame, put_text, (left + 5, bottom-5), cv2.FONT_HERSHEY_COMPLEX, 1.0, (0, 0, 0), lineType=cv2.LINE_AA)
-                temp_image_list.append(frame)
-                hor_img_count += 1
-                if hor_img_count == HORIZONTAL:
-                    image_list.append(cv2.hconcat(temp_image_list))
-                    temp_image_list = []
-                    hor_img_count = 0
-
-            flame_num += 1
+            video_len_sec = flame_num / video_fps
+            put_text = '{0}:{1:0=2}'.format(int(video_len_sec / 60), int(video_len_sec % 60))
+            retval, baseLine = cv2.getTextSize(put_text, cv2.FONT_HERSHEY_COMPLEX, 1.0, 1)
+            left = 5
+            right = left + retval[0] + 10
+            bottom = frame.shape[0] - 5
+            top = bottom - retval[1] - 10
+            pts = np.array(((left, top), (right, top), (right, bottom), (left, bottom)))
+            cv2.fillPoly(frame, [pts], (200,200,200))
+            cv2.putText(frame, put_text, (left + 5, bottom-5), cv2.FONT_HERSHEY_COMPLEX, 1.0, (0, 0, 0), lineType=cv2.LINE_AA)
+            temp_image_list.append(frame)
+            hor_img_count += 1
+            if hor_img_count == HORIZONTAL:
+                image_list.append(cv2.hconcat(temp_image_list))
+                temp_image_list = []
+                hor_img_count = 0
 
         # メモリ開放
         video.release()
