@@ -16,6 +16,19 @@
         exit;
     }
 
+    $useragents = array('iPhone', 'iPod', 'Android', 'dream', 'CUPCAKE', 'blackberry9500', 'blackberry9530', 'blackberry9520', 'blackberry9550', 'blackberry9800', 'webOS', 'incognito', 'webmate');
+    $devise_type = "pc";
+    foreach ($useragents as $useragent) {
+        if (strpos($_SERVER['HTTP_USER_AGENT'], $useragent) !== false) {
+            $devise_type = "mobile";
+        }
+    }
+    if ($devise_type == "pc") {
+        echo '<link rel="stylesheet" type="text/css" href="style_pc.css">';
+    } else {
+        echo '<link rel="stylesheet" type="text/css" href="style_mobile.css">';
+    }
+
     $json_file = "videos.json";
     if (file_exists($json_file)) {
         $json = file_get_contents($json_file);
