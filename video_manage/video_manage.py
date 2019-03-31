@@ -448,7 +448,7 @@ for dir_video_data in dir_video_data_list:
         # 新規追加
         dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
-        if dir_video_data.check_exists_thumbnail() == False:
+        if dir_video_data.exists_thumbnail == False:
             dir_video_data.make_thumbnail()
     elif exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
         # ファイルパスなどをアップデート
@@ -458,7 +458,7 @@ for dir_video_data in dir_video_data_list:
         # 新規追加
         dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
-        if dir_video_data.check_exists_thumbnail() == False:
+        if dir_video_data.exists_thumbnail == False:
             dir_video_data.make_thumbnail()
 
 
