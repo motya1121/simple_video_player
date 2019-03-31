@@ -18,6 +18,8 @@ import json
 import stat
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
+import time
+
 
 #############################################
 #                  classes                  #
@@ -73,11 +75,11 @@ class VIDEO:
         tmb_file_name = self.video_file_name[:self.video_file_name.rfind(".")]
         if os.path.isfile(self.video_dir_path + "/" + tmb_file_name + ".jpg"):
             if DEBUG in ["2"]:
-                print("*INFO: thumbnail not exists", flush=True)
+                print("*INFO: thumbnail exists", flush=True)
             self.exists_thumbnail = True
         else:
             if DEBUG in ["2"]:
-                print("*INFO: thumbnail exists", flush=True)
+                print("*INFO: thumbnail not exists", flush=True)
             self.exists_thumbnail = False
         return self.exists_thumbnail
 
@@ -402,6 +404,7 @@ ROOT_VIDEO_DIR_LIST = config_file.get("SETTINGS", "root_video_dir").split(",")
 ROOT_WEB_DIR = config_file.get("SETTINGS", "root_web_dir")
 DEBUG = config_file.get("DEBUG", "DEBUG_LEVEL")
 
+# シンボリックリンク
 # INFO
 print ("*INFO: シンボリックリンクの作成", flush=True)
 if os.path.isdir(ROOT_WEB_DIR+"/video_contents/") == True:
@@ -445,7 +448,7 @@ for dir_video_data in dir_video_data_list:
         # 新規追加
         dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
-        if dir_video_data.check_exists_thumbnail() == False:
+        if dir_video_data.exists_thumbnail == False:
             dir_video_data.make_thumbnail()
     elif exists_video_data(json_video_data_list, dir_video_data.sha1) == True:
         # ファイルパスなどをアップデート
@@ -455,7 +458,7 @@ for dir_video_data in dir_video_data_list:
         # 新規追加
         dir_video_data.calc_video_length()
         json_video_data_list.append(dir_video_data)
-        if dir_video_data.check_exists_thumbnail() == False:
+        if dir_video_data.exists_thumbnail == False:
             dir_video_data.make_thumbnail()
 
 
