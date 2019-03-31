@@ -33,14 +33,6 @@
         </div>
     </div>
     <div class="contents">
-        <div class="contents_panel">
-            <div class="contents_panel_search">
-                Search
-                <form action="top.html" method="get">
-                    <input type="text" name="search" style="width:90%; box-sizing:border-box" maxlength="100" placeholder="検索文字列"> <br><input type="submit" value="検索">
-                </form>
-            </div>
-        </div>
         <div class="contents_main">
             <?php
             $index_count = 0;
