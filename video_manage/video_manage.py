@@ -83,7 +83,7 @@ class VIDEO:
             self.exists_thumbnail = False
         return self.exists_thumbnail
 
-    def make_thumbnail(self, VERTICAL=3, HORIZONTAL=4):
+    def make_thumbnail(self, VERTICAL=3, HORIZONTAL=3):
         '''
         サムネイルを作成し、self.exists_thumbnailをTrueにする
 
