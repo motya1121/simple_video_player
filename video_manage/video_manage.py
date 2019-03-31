@@ -100,8 +100,7 @@ class VIDEO:
         import cv2
 
         video_path = self.video_dir_path + "/" + self.video_file_name
-        thumbnail_path = self.video_dir_path + "/" + \
-            self.video_file_name[:self.video_file_name.rfind(".")] + ".jpg"
+        thumbnail_path = self.video_dir_path + "/" + self.video_file_name[:self.video_file_name.rfind(".")] + ".jpg"
         video = cv2.VideoCapture(video_path)
         video_frame = video.get(cv2.CAP_PROP_FRAME_COUNT)
         video_fps = video.get(cv2.CAP_PROP_FPS)
