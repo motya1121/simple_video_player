@@ -31,7 +31,7 @@ while video.isOpened():
         top = bottom - retval[1] - 10
         pts = np.array(((left, top), (right, top), (right, bottom), (left, bottom)))
         cv2.fillPoly(frame, [pts], (200,200,200))
-        cv2.putText(frame, put_text, (10, 260), cv2.FONT_HERSHEY_COMPLEX, 1.0, (0, 0, 0), lineType=cv2.LINE_AA)
+        cv2.putText(frame, put_text, (left + 5, bottom-5), cv2.FONT_HERSHEY_COMPLEX, 1.0, (0, 0, 0), lineType=cv2.LINE_AA)
         temp_image_list.append(frame)
         hor_img_count += 1
         if hor_img_count == HORIZONTAL:
