@@ -1,48 +1,83 @@
+body{
+
+}
 div {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     text-align: left;
 }
-div.top{
-    border-bottom: 3px solid #EEEEEE;
+.noline {
+    color: #000000;
+    text-decoration:none
+}
+
+
+
+/****           DIV           ***/
+/*header*/
+div.header{
+    border-bottom: 2px solid #AAAAAA;
     line-height: 8vh;
-}
-div.box_main{
-}
-div.contents{
-    padding-right: 1%;
-    border-right: 1px  solid #EEEEEE;
-}
-div.vtr{
-    border-bottom: 1px  solid #EEEEEE;
-}
-div.tags{
-    margin-top: 3%;
-    border-top: 1px  solid #EEEEEE;
-    border-bottom: 3px  solid #DDDDDD;
-}
-div.list_main{
-    margin-top:20px;
-    border-bottom: 1px  solid #EEEEEE;
-    height: 20vh;
-}
-div.list_v{
-    border: 2px  solid #555555;
-    float: left;
-    width:50%;
-    height: 18vh;
-}
-div.list_desc{
-    height: 18vh;
-}
-div.list_v{
-    border-bottom: 1px  solid #EEEEEE;
-}
-div.bottom{
-    border-top: 1px  solid #EEEEEE;
-    float: none;
     width: 100%;
-    line-height: 10vh;
 }
-table.video_list{
-    table-layout: fixed;
+div.header_rogo{
+    margin-left: 10px;
+}
+
+
+/*contents*/
+div.contents{
+    width: 100%;
+    display: table;
+}
+div.contents_panel{
+    border-right: 1px solid #AAAAAA;
+    display:table-cell;
+    vertical-align:top;
+    width: 20%;
+}
+div.contents_panel_search{
+    border-bottom: 1px solid #AAAAAA;
+    padding-bottom: 10px;
+}
+div.contents_main{
+    display:table-cell;
+    vertical-align:top;
+    width: 80%;
+    padding:5px;
+}
+/**top**/
+div.contents_main_video{
+    border-bottom: 1px solid #AAAAAA;
+    margin: 10px 1px;
+    display: table;
+    vertical-align:top;
+    width:100%;
+}
+div.contents_main_video_thumbnail{
+    display:table-cell;
+    vertical-align: middle;
+    width:30%;
+    padding:3px;
+}
+img.contents_main_video_thumbnail{
+    width: 100%;
+}
+div.contents_main_video_description{
+    display:table-cell;
+    vertical-align:top;
+    width:70%;
+}
+.contents_main_video_description > H2{
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+/**watch**/
+.contents_main > video{
+    width:100%;
+}
+
+/*bottom*/
+div.bottom{
+    border-top: 2px  solid #AAAAAA;
+    width: 100%;
 }
