@@ -97,6 +97,9 @@ class VIDEO:
         import numpy as np
         import cv2
 
+        if DEBUG in ["1", "2"]:
+            print("*INFO: make {0}'s thumbnail".format(self.video_file_name), flush=True)
+
         video_path = self.video_dir_path + "/" + self.video_file_name
         thumbnail_path = self.video_dir_path + "/" + \
             self.video_file_name[:self.video_file_name.rfind(".")] + ".jpg"
