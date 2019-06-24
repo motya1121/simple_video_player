@@ -1,4 +1,4 @@
-# Simple_video_player
+# simple_video_server
 PCに保存した動画を簡単にLAN内の端末で視聴できるようにするツール。
 
 # 動作環境
