@@ -30,7 +30,7 @@ sudo service apache2 reload
 その他pip関連で諸々必要
 
 
-# 使用方法
+# 環境設定
 ## 設定ファイル
 ### video_manage/video_manage.conf
 - root_web_dir: Webページのルートディレクトリ(web_pageディレクトリを配置した場所)
@@ -41,14 +41,18 @@ sudo service apache2 reload
 - $is_open: Trueならばサイトを公開,Falseならばサイトを公開しない
 
 
-## 動画登録方法
+## 動画登録
 `video_manage/video_manage.py`を実行するだけ
 なお、シンボリックリンクなどを張ったり、ファイルを作成する必要があるため、権限には注意が必要。
-`/var/www/html/`と`web_page`にシンボリックリンクを張ることをおすすめ。
+動画を更新したい場合も同じコマンドを実行するだけで更新される．
 
-## 閲覧
-`top.php`を開けば閲覧できる
 
-# 注意事項
-## 動作が重い
-内部で動画ファイルの比較をするためにハッシュ値を計算しており、その部分が遅くなっている。
+## Webページ作成
+### シンボリックリンク
+`/var/www/html/`に`web_page`へのシンボリックリンクを張る．
+### ファイルのコピ－
+`web_page`ディレクトリをapache配下に移動する
+
+
+# 使用方法
+ブラウザより`top.php`を開けば閲覧できる
