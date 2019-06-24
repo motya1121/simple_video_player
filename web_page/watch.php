@@ -52,6 +52,9 @@
             foreach ($video_datas as $video_data) {
                 if ($video_data["sha1"] == $_GET["sha1"]) {
                     $video_dir_path = "video_contents/" . sha1($video_data["video_dir_path"]);
+                    if (!file_exists($video_dir_path)) {
+                        echo 'ファイルが見つかりません！';
+                    }
                     echo '<H2>' . substr($video_data["video_file_name"], 0, strrpos($video_data["video_file_name"], ".")) . '</H2>';
                     echo '<video src="' . $video_dir_path . '/' . $video_data["video_file_name"] . '" controls></video>';
                     $video_datas[$index_count]["view_count"] += 1;

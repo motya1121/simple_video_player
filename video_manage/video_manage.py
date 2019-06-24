@@ -51,9 +51,9 @@ class VIDEO:
         -------
         ハッシュ値(str)
         '''
-        video_path = self.video_dir_path+"/"+self.video_file_name
+        video_path = self.video_dir_path + "/" + self.video_file_name
         with open(video_path, "rb") as video_file:
-            video_binary_data = video_file.read()
+            video_binary_data = video_file.read(10000)
             sha1 = hashlib.sha1(video_binary_data).hexdigest()
         if DEBUG in ["2"]:
             print("*INFO: {0}'s sha1sum->{1}".format(self.video_file_name, sha1), flush=True)
@@ -115,6 +115,17 @@ class VIDEO:
         flame_num = 0
         hor_img_count = 0
         for flame_num in range(0, int(video_frame), int(thumbnail_interval)):
+            while True:
+                video.set(cv2.CAP_PROP_POS_FRAMES, flame_num)
+                ret, frame = video.read()
+
+                if frame is None:
+                    if flame_num <= thumbnail_interval*2:
+                        flame_num += 1
+                    else:
+                        flame_num -= 1
+                else:
+                    break
             video.set(cv2.CAP_PROP_POS_FRAMES, flame_num)
             ret, frame = video.read()
 
@@ -168,7 +179,10 @@ class VIDEO:
 
         video_frame = video.get(cv2.CAP_PROP_FRAME_COUNT)
         video_fps = video.get(cv2.CAP_PROP_FPS)
-        video_len_sec = video_frame / video_fps
+        if video_frame == 0.0 or video_fps == 0.0:
+            video_len_sec = 0
+        else:
+            video_len_sec = video_frame / video_fps
 
         self.video_length = video_len_sec
 
@@ -335,7 +349,8 @@ def set_video_data_for_json(json_video_data_dict):
     if "tags" in json_video_data_dict:
         video_data.tags = json_video_data_dict["tags"]
     if "exists_video_file" in json_video_data_dict:
-        video_data.exists_video_file = json_video_data_dict["exists_video_file"]
+        #video_data.exists_video_file = json_video_data_dict["exists_video_file"]
+        video_data.exists_video_file = False
     if "exists_thumbnail" in json_video_data_dict:
         video_data.exists_thumbnail = json_video_data_dict["exists_thumbnail"]
     if "view_count" in json_video_data_dict:

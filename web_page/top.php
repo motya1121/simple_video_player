@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>home video page</title>
     <?php
+    # ini_set('display_errors', "On");
     require("web_page_conf.php");
     if ($is_open == false) {
         exit;
@@ -41,11 +42,10 @@
                 $index_count += 1;
             }
         }
+        $json = fopen($json_file, 'w');
+        fwrite($json, json_encode($video_datas));
+        fclose($json);
     }
-
-    $json = fopen($json_file, 'w');
-    fwrite($json, json_encode($video_datas));
-    fclose($json);
 
     $json_file = "videos.json";
     if (file_exists($json_file)) {
@@ -94,7 +94,11 @@
             $video_datas = video_sort($video_datas, $_GET["option"], $_GET["search"]);
 
             #display videos
+            $count = 1;
             foreach ($video_datas as $video_data) {
+                if ($video_data["exists_video_file"] == false) {
+                    continue;
+                }
                 $video_dir_path = "video_contents/" . sha1($video_data["video_dir_path"]);
                 $img_path = substr($video_data["video_file_name"], 0, strrpos($video_data["video_file_name"], ".")) . ".jpg";
                 echo '<div class="contents_main_video" id="' . $video_data["sha1"] . '">';
@@ -118,6 +122,11 @@
                 }
                 echo '</div>';
                 echo '</div>';
+                if (20 < $count) {
+                    break;
+                } else {
+                    $count++;
+                }
             }
             ?>
         </div>
@@ -189,4 +198,4 @@ function video_sort($video_datas, $options, $search_str)
 }
 ?>
 
-</html> 
+</html>
